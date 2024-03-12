@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ProfileField extends Model
 {
     use HasFactory;
+
+    protected $table = 'profile_fields';
+    public $timestamps = false;
 }

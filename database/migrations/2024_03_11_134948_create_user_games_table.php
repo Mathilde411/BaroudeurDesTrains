@@ -19,7 +19,6 @@ return new class extends Migration
             $table->foreign('game_id')->references('id')->on('games');
             $table->foreign('user_id')->references('id')->on('users');
 
-            $table->boolean('game_master');
             $table->integer('score')->nullable();
 
             $table->timestamps();
