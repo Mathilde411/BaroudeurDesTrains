@@ -51,11 +51,6 @@ class User extends Authenticatable
         return $this->hasMany(Token::class, 'user_id', 'id');
     }
 
-    public function passwordResets() : HasMany
-    {
-        return $this->hasMany(PasswordReset::class, 'user_id', 'id');
-    }
-
     public function createdGames() : HasMany
     {
         return $this->hasMany(Game::class, 'user_id', 'id');
