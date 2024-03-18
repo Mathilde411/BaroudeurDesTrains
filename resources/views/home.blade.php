@@ -7,7 +7,7 @@
         <h1>Home</h1>
         <a href="{{route('login')}}">Login</a>
         <a href="{{route('register')}}">Register</a>
-        <a href="{{route('forgot-password')}}">Forgot Password</a>
+        <a href="{{route('password.forgot')}}">Forgot Password</a>
     </div>
 </body>
 </html>

@@ -19,7 +19,7 @@ class AuthenticationController extends Controller
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
-            'remember' => ['required', 'boolean']
+            'remember' => ['boolean']
         ]);
 
         if (Auth::attempt([
