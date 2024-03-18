@@ -16,23 +16,23 @@ class Game extends Model
 
     public function gameState() : BelongsTo
     {
-        return $this->belongsTo(GameState::class, 'game_state_id', 'id');
+        return $this->belongsTo(GameState::class);
     }
 
     public function user() : BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class);
     }
 
     public function staticticsValues() : HasMany
     {
-        return $this->hasMany(StatisticsValue::class, 'game_id', 'id');
+        return $this->hasMany(StatisticsValue::class);
     }
 
     public function players() : BelongsToMany
     {
         return $this
-                ->belongsToMany(User::class, 'user_games', 'game_id', 'user_id', 'id', 'id')
+                ->belongsToMany(User::class, 'user_games')
                 ->using(UserGame::class)
                 ->withTimestamps();
     }
