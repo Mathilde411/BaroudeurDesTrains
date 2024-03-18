@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -48,16 +49,23 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function tokens() : HasMany
     {
-        return $this->hasMany(Token::class, 'user_id', 'id');
+        return $this->hasMany(Token::class);
     }
 
     public function createdGames() : HasMany
     {
-        return $this->hasMany(Game::class, 'user_id', 'id');
+        return $this->hasMany(Game::class);
     }
 
     public function statisticsValues() : HasMany
     {
-        return $this->hasMany(StatisticsValue::class, 'user_id', 'id');
+        return $this->hasMany(StatisticsValue::class);
+    }
+
+    public function conversation() : BelongsToMany
+    {
+        return $this->belongsToMany(Conversation::class, 'conversation_users')
+            ->using(ConversationUser::class)
+            ->withTimestamps();
     }
 }

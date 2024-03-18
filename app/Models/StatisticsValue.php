@@ -14,16 +14,16 @@ class StatisticsValue extends Model
 
     public function user() : BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class);
     }
 
     public function game() : BelongsTo
     {
-        return $this->belongsTo(Game::class, 'game_id', 'id');
+        return $this->belongsTo(Game::class);
     }
 
     public function statistics() : BelongsTo
     {
-        return $this->belongsTo(Statistics::class, 'statistics_id', 'id');
+        return $this->belongsTo(Statistics::class, 'statistics_id');
     }
 }

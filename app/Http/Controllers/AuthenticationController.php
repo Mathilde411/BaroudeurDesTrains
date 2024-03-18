@@ -14,6 +14,18 @@ use Illuminate\Support\Str;
 
 class AuthenticationController extends Controller
 {
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect()->route('home');
+    }
+
     public function login(Request $request)
     {
         $credentials = $request->validate([

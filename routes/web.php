@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\ConversationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/logout', [AuthenticationController::class, 'logout'])->name('logout');
 
 Route::middleware('guest')->group(function () {
     Route::view('/login', 'auth.login')
@@ -50,7 +52,13 @@ Route::middleware('auth')->group(function () {
     Route::middleware('verified')->group(function () {
         Route::view('protected', 'protected')
             ->name('protected');
+
+        Route::prefix('conversation/{conversation}')->group(function () {
+            Route::get('/', [ConversationController::class, 'display'])->name('conversation');
+            Route::post('/', [ConversationController::class, 'send'])->name('sendMessage');
+        });
     });
+
 });
 
 Route::view('/', 'home')->name('home');
