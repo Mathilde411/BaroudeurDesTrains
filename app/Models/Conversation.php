@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\MessageReceivedEvent;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -25,12 +26,16 @@ class Conversation extends Model
         return $this->hasMany(Message::class);
     }
 
-    public function createMessage(User $user, string $message)
+    public function sendMessage(User $user, string $message)
     {
         $res = new Message();
         $res->message = $message;
         $res->conversation_id = $this->id;
         $res->user_id = $user->id;
+        $res->save();
 
+        MessageReceivedEvent::dispatch($res);
+
+        return $res;
     }
 }

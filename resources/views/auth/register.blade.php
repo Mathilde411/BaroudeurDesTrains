@@ -12,6 +12,7 @@
             <x-input label="Pseudo" name="pseudo" type="text"></x-input>
             <x-input label="Email" name="email" type="email"></x-input>
             <x-input label="Password" name="password" type="password"></x-input>
+            <x-input label="Confirmation" name="password_confirmation" type="password"></x-input>
 
             <input type="submit" value="S'inscrire">
         </form>
