@@ -12,7 +12,7 @@
             <x-input label="Email" name="email" type="email"></x-input>
             <x-input label="Password" name="password" type="password"></x-input>
             <input type="hidden" name="remember" value="0">
-            <x-input label="Rester connecté" name="remember" type="checkbox"></x-input>
+            <x-input label="Rester connecté" name="remember" type="checkbox" value="1"></x-input>
             <input type="submit" value="Se connecter">
         </form>
     </div>
