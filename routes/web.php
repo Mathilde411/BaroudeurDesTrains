@@ -34,7 +34,7 @@ Route::middleware('guest')->group(function () {
     Route::get('/reset-password/{token}', [AuthenticationController::class, 'resetPasswordForm'])
         ->name('password.reset');
     Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'])
-        ->name('password.reset');
+        ->name('password.reset.post');
 });
 
 Route::middleware('auth')->group(function () {
@@ -54,8 +54,10 @@ Route::middleware('auth')->group(function () {
             ->name('protected');
 
         Route::prefix('conversation/{conversation}')->group(function () {
-            Route::get('/', [ConversationController::class, 'display'])->name('conversation');
-            Route::post('/', [ConversationController::class, 'send'])->name('sendMessage');
+            Route::get('/', [ConversationController::class, 'display'])
+                ->name('conversation');
+            Route::post('/', [ConversationController::class, 'send'])
+                ->name('sendMessage');
         });
     });
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Conversation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ConversationController extends Controller
 {
@@ -15,6 +16,12 @@ class ConversationController extends Controller
 
     function send(Request $request, Conversation $conversation)
     {
-        return 0;
+        $params = $request->validate([
+            'message' => ['required', 'string'],
+        ]);
+
+        $user = Auth::user();
+
+        return $conversation->sendMessage($user, $params['message']);
     }
 }

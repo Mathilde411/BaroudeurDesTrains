@@ -65,7 +65,7 @@ class AuthenticationController extends Controller
     {
         $credentials = $request->validate([
             'email' => ['required', 'email', 'unique:App\Models\User,email'],
-            'password' => ['required'],
+            'password' => ['required', 'min:8', 'confirmed'],
             'pseudo' => ['required', 'string', 'alpha_num', 'unique:App\Models\User,pseudo'],
         ]);
 
@@ -105,8 +105,11 @@ class AuthenticationController extends Controller
             : back()->withErrors(['email' => __($status)]);
     }
 
-    public function resetPasswordForm(string $token) {
-        return view('auth.reset-password', ['token' => $token]);
+    public function resetPasswordForm(Request $request, string $token) {
+        $param = $request->validate([
+            'email' => 'required|email'
+        ]);
+        return view('auth.reset-password', ['token' => $token, 'email' => $param['email']]);
     }
 
     public function resetPassword(Request $request) {
