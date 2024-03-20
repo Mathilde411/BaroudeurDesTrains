@@ -1,0 +1,36 @@
+$base-color: #ffffff;
+$navbar-color: #cccccc;
+
+body {
+    width: 100vw;
+    min-height: 100vh;
+    margin: 0;
+    font-size: 12px;
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: $base-color;
+
+    header {
+        background-color: $navbar-color;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+
+        nav {
+            flex-grow: 1;
+            ul {
+                display: flex;
+                flex-direction: row;
+                li {
+                    margin-left: 5px;
+                    margin-right: 5px;
+                    list-style: none;
+                }
+            }
+        }
+    }
+}
+
