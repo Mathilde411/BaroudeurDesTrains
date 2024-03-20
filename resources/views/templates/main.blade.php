@@ -1,3 +1,5 @@
+@php use Illuminate\Support\Facades\Vite; @endphp
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <title>Baroudeur des Trains - @yield('title')</title>
@@ -11,29 +13,29 @@
     @stack('scripts')
 </head>
 <body>
-    <header>
-        <img class="logo" src="#" alt="Logo"/>
-        <nav>
-            <ul>
-                <li><a href="#">Lien</a></li>
-                <li><a href="#">Lien</a></li>
-                <li><a href="#">Lien</a></li>
-            </ul>
-        </nav>
-        <div class="profile">
-            @guest
+<header>
+    <img class="logo" src="#" alt="Logo"/>
+    <nav>
+        <ul>
+            <li><a href="{{route('conversation', ['conversation' => 1])}}">Chat</a></li>
+            <li><a href="#">Lien</a></li>
+            <li><a href="#">Lien</a></li>
+        </ul>
+    </nav>
+    <div class="profile">
+        @guest
+            <a class="btn btn-main" href="#">S'inscrire</a> ou <a href="#">Se connecter</a>
+        @endguest
+        @auth
 
-            @endguest
-            @auth
-
-            @endauth
-        </div>
-    </header>
-    <div id="content">
-        @yield('content')
+        @endauth
     </div>
-    <footer>
+</header>
+<div id="content">
+    @yield('content')
+</div>
+<footer>
 
-    </footer>
+</footer>
 </body>
 </html>
