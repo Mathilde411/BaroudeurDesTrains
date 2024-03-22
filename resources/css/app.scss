@@ -1,7 +1,7 @@
 @use 'variables';
 
 @font-face {
-    font-family: 'Minion Pro Regular';
+    font-family: variables.$font-family;
     font-style: normal;
     font-weight: normal;
     src: local('Minion Pro Regular'), url('/resources/fonts/MinionPro-Regular.woff') format('woff');
@@ -20,8 +20,10 @@
     text-decoration: none;
     border: none;
     &:hover {
-        transition: 0.1s;
+        transition: 0.01s;
+        cursor: pointer;
     }
+    font-family: variables.$font-family;
 }
 
 .btn-main {
@@ -30,6 +32,9 @@
     &:hover {
         background-color: variables.$main-color-variation;
         color: variables.$base-color;
+    }
+    &:active {
+        opacity: 0.8;
     }
 }
 
