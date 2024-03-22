@@ -1,14 +1,14 @@
 @use 'variables';
 
 @font-face {
-    font-family: variables.$font-family;
+    font-family: 'Minion Pro Regular';
     font-style: normal;
     font-weight: normal;
     src: local('Minion Pro Regular'), url('/resources/fonts/MinionPro-Regular.woff') format('woff');
 }
 
 :root {
-    font-size: 17px;
+    font-size: 20px;
     font-family: 'Minion Pro Regular';
     font-weight: 1.2;
 }
@@ -20,23 +20,90 @@
     text-decoration: none;
     border: none;
     &:hover {
-        transition: 0.01s;
+        transition: 0.05s;
         cursor: pointer;
     }
+
+    &.stick-right {
+        margin-right: 0;
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+        padding-right: 5px;
+
+    }
+
+    &.stick-left {
+        margin-left: 0;
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+        padding-left: 5px;
+    }
     font-family: variables.$font-family;
+
+    &.main {
+        background-color: variables.$main-color;
+        color: variables.$base-color-1;
+        &:hover {
+            background-color: variables.$main-color-variation;
+            color: variables.$base-color-1;
+        }
+    }
+
+
 }
 
-.btn-main {
-    background-color: variables.$main-color;
-    color: variables.$base-color;
-    &:hover {
-        background-color: variables.$main-color-variation;
-        color: variables.$base-color;
+.has-dropdown {
+    .drop::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        border: inset 5px;
+        border-color: variables.$base-color-3 transparent transparent transparent;
     }
-    &:active {
-        opacity: 0.8;
+
+    .dropdown {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        background-color: variables.$base-color-2;
+        right: 0;
+        z-index: 1;
+
+        a {
+            display: flex;
+            flex-direction: row;
+            padding: 5px 10px;
+            color: black;
+            align-items: center;
+            justify-content: right;
+
+            &:hover {
+                background-color: variables.$base-color-3;
+            }
+
+            svg {
+                margin-left: 5px;
+            }
+        }
+
+        &:hover {
+            display: flex;
+        }
+    }
+
+    &:hover {
+        .dropdown {
+            display: flex;
+        }
     }
 }
+
+.profile-pic {
+    border-radius: 50%;
+    border: 1px solid variables.$main-color;
+}
+
 
 a {
     text-decoration: none;
@@ -56,18 +123,23 @@ body {
     display: flex;
     flex-direction: column;
 
-    background-color: variables.$base-color;
+    background-color: variables.$base-color-1;
 
     header {
         padding: 5px 10px;
-        background-color: variables.$base-color-variation;
+        background-color: variables.$base-color-2;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
 
-        img {
-            width: 70px;
+        .logo {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            img {
+                width: 60px;
+            }
         }
 
 
@@ -84,6 +156,9 @@ body {
                     margin-right: 15px;
                     list-style: none;
                     a {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
                         font-size: 1.2rem;
                     }
                 }
@@ -91,15 +166,45 @@ body {
         }
 
         .profile {
+            display: block;
+            a {
+                padding-right: 15px;
+                min-height: 30px;
+                min-width: 30px;
+                .profile-pic {
+                    height: 30px;
+                    width: 30px;
+                }
+            }
 
         }
     }
 
     #content {
+        margin: 10px 5%;
         width: 100%;
         flex-grow: 1;
         display: flex;
         flex-direction: column;
+    }
+
+    footer {
+        padding: 15px 5px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        color: variables.$base-color-3;
+
+        .footer-content {
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            p {
+                margin: 0;
+                font-size: 0.75rem;
+            }
+        }
     }
 }
 
