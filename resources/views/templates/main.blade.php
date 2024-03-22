@@ -14,7 +14,7 @@
 </head>
 <body>
 <header>
-    <img class="logo" src="#" alt="Logo"/>
+    <img class="logo" src="{{Vite::asset('resources/images/logo.png')}}" alt="Logo"/>
     <nav>
         <ul>
             <li><a href="{{route('conversation', ['conversation' => 1])}}">Chat</a></li>

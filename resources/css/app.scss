@@ -11,8 +11,9 @@ $main-color-variation: #4797cb;
 }
 
 :root {
-    font-size: 13px;
+    font-size: 17px;
     font-family: 'Minion Pro Regular';
+    font-weight: 1.2;
 }
 
 .btn {
@@ -31,6 +32,17 @@ $main-color-variation: #4797cb;
     color: $base-color;
     &:hover {
         background-color: $main-color-variation;
+        color: $base-color;
+    }
+}
+
+a {
+    text-decoration: none;
+    border: none;
+    color: $main-color;
+    &:hover {
+        color: $main-color-variation;
+        transition: 0.1s;
     }
 }
 
@@ -45,23 +57,29 @@ body {
     background-color: $base-color;
 
     header {
-        padding: 5px;
+        padding: 5px 10px;
         background-color: $navbar-color;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
 
+        img {
+            width: 70px;
+        }
+
 
         nav {
             flex-grow: 1;
+            padding-left: 20px;
             ul {
+                padding: 0;
+                margin: 0;
                 display: flex;
                 align-items: center;
                 flex-direction: row;
                 li {
-                    margin-left: 5px;
-                    margin-right: 5px;
+                    margin-right: 15px;
                     list-style: none;
                     a {
                         font-size: 1.2rem;
