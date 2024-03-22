@@ -1,7 +1,7 @@
 @use 'variables';
 
 @font-face {
-    font-family: 'Minion Pro Regular';
+    font-family: variables.$font-family;
     font-style: normal;
     font-weight: normal;
     src: local('Minion Pro Regular'), url('/resources/fonts/MinionPro-Regular.woff') format('woff');
@@ -9,11 +9,14 @@
 
 :root {
     font-size: 20px;
-    font-family: 'Minion Pro Regular';
+    font-family: variables.$font-family;
     font-weight: 1.2;
 }
 
 .btn {
+    font-size: 20px;
+    font-family: variables.$font-family;
+    font-weight: 1.2;
     padding: 10px 15px;
     border-radius: 5px;
     text-align: center;
@@ -38,7 +41,6 @@
         border-top-left-radius: 0;
         padding-left: 5px;
     }
-    font-family: variables.$font-family;
 
     &.main {
         background-color: variables.$main-color;

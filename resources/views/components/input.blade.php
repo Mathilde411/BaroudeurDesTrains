@@ -3,5 +3,5 @@
         {{$label}} :
     </div>
     <input type="{{$type}}" name="{{$name}}" value="{{old($name) ?? ($value ?? '')}}">
-    @error($name)<span>{{$message}}</span>@enderror
+    @error($name)<span class="error-message">{{$message}}</span>@enderror
 </label>
