@@ -1,7 +1,7 @@
 @use 'variables';
 
 .form {
-    background-color: variables.$base-color-variation;
+    background-color: variables.$base-color-2;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -22,7 +22,7 @@
 
             input {
                     appearance: none;
-                    background-color: variables.$base-color;
+                    background-color: variables.$base-color-1;
                     border-radius: 72px;
                     border-style: none;
                     flex-shrink: 0;
@@ -45,7 +45,7 @@
                 }
 
                 &::after {
-                    background-color: variables.$base-color-variation;
+                    background-color: variables.$main-color-variation;
                     border-radius: 50%;
                     content: "";
                     height: 14px;
@@ -64,7 +64,7 @@
                 }
 
                 &:checked::after {
-                    background-color: variables.$base-color;
+                    background-color: variables.$base-color-1;
                     left: 13px;
                 }
 
