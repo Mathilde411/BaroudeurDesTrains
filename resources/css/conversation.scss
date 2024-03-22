@@ -1,11 +1,11 @@
-$chat-color: #cccccc;
+@use 'variables';
 
 .chat {
     margin: 10%;
     padding: 10px;
     max-height: 95%;
 
-    background-color: $chat-color;
+    background-color: variables.$base-color-variation;
 
     display: flex;
     flex-direction: column;

@@ -1,7 +1,4 @@
-$base-color: #ffffff;
-$navbar-color: #cccccc;
-$main-color: #1879b8;
-$main-color-variation: #4797cb;
+@use 'variables';
 
 @font-face {
     font-family: 'Minion Pro Regular';
@@ -28,20 +25,20 @@ $main-color-variation: #4797cb;
 }
 
 .btn-main {
-    background-color: $main-color;
-    color: $base-color;
+    background-color: variables.$main-color;
+    color: variables.$base-color;
     &:hover {
-        background-color: $main-color-variation;
-        color: $base-color;
+        background-color: variables.$main-color-variation;
+        color: variables.$base-color;
     }
 }
 
 a {
     text-decoration: none;
     border: none;
-    color: $main-color;
+    color: variables.$main-color;
     &:hover {
-        color: $main-color-variation;
+        color: variables.$main-color-variation;
         transition: 0.1s;
     }
 }
@@ -54,11 +51,11 @@ body {
     display: flex;
     flex-direction: column;
 
-    background-color: $base-color;
+    background-color: variables.$base-color;
 
     header {
         padding: 5px 10px;
-        background-color: $navbar-color;
+        background-color: variables.$base-color-variation;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
