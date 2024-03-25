@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -68,4 +69,24 @@ class User extends Authenticatable implements MustVerifyEmail
             ->using(ConversationUser::class)
             ->withTimestamps();
     }
+
+    public function profileFields() : BelongsToMany {
+        return $this
+            ->belongsToMany(ProfileField::class, 'profile_field_users', 'user_id', 'profile_field_id', 'id', 'id')
+            ->using(ProfileFieldUser::class)
+            ->withPivot('value', 'created_at', 'updated_at')
+            ->withTimestamps();
+    }
+
+    public function getFields()
+    {
+        $fields = [];
+
+        foreach ($this->profileFields as $rawField) {
+            $fields[$rawField->name] = $rawField->pivot->value;
+        }
+
+        return $fields;
+    }
+
 }
