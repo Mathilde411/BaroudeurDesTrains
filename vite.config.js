@@ -11,6 +11,7 @@ export default defineConfig({
 
                 'resources/js/app.js',
                 'resources/js/conversation.js',
+                'resources/js/profile.js',
             ],
             refresh: true,
         }),

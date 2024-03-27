@@ -12,7 +12,13 @@ class ProfileController extends Controller
         $fields = $user->getFields();
 
         return view('profile', [
-            'fields' => $fields
+            'fields' => $fields,
+            'user' => $user
         ]);
+    }
+
+    function modifyProfile(User $user)
+    {
+
     }
 }

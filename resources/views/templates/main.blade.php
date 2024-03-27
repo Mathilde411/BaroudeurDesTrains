@@ -33,7 +33,7 @@
             <a class="btn main" href="{{route('register')}}">S'inscrire</a> ou <a href="{{route('login')}}">Se connecter</a>
         @endguest
         @auth
-            <a class="drop" href="#">
+            <a class="drop" href="/profile/{{auth()->user()->id}}">
                 <img class="profile-pic"
                      src="https://www.sayonneara.fr/wp-content/uploads/2019/03/blank-profile-picture-973460_1280.png">
             </a>

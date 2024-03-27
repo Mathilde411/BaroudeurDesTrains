@@ -63,6 +63,8 @@ Route::middleware('auth')->group(function () {
 
         Route::get('profile/{user}', [ProfileController::class, 'display'])
             ->name('profile');
+        Route::post('profile/{user}', [ProfileController::class, 'modifyProfile'])
+            ->name('profile.post');
     });
 
 });
