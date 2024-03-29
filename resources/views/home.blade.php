@@ -14,6 +14,6 @@
         <p>Bienvenue {{Auth::user()->pseudo}} !</p>
         <a href="{{route('logout')}}">Logout</a>
         <a href="{{route('conversation', ['conversation' => 1])}}">Chat</a>
-        <x-map></x-map>
+        <x-destination-card :destinations="['nantes_strasbourg', 'bielefeld_rouen']"></x-destination-card>
     @endauth
 @endsection

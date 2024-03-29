@@ -483,5 +483,127 @@
         "toulouse": [792,2209],
         "tours": [719,1311],
         "turin": [1801,2000]
+    },
+    "destinations": {
+        "rouen_lyon": {
+            "score": 4,
+            "cities":["rouen", "lyon"]
+        },
+        "rennes_amsterdam": {
+            "score": 5,
+            "cities": ["rennes", "amsterdam"]
+        },
+        "limoges_milan": {
+            "score": 6,
+            "cities": ["limoges", "milan"]
+        },
+        "nancy_montpellier": {
+            "score": 7,
+            "cities": ["nancy", "montpellier"]
+        },
+        "orleans_nice": {
+            "score": 7,
+            "cities": ["orleans", "nice"]
+        },
+        "tours_dijon": {
+            "score": 8,
+            "cities": ["tours", "dijon"]
+        },
+        "paris_francfort": {
+            "score": 8,
+            "cities": ["paris", "francfort"]
+        },
+        "berne_paris": {
+            "score": 8,
+            "cities": ["berne", "paris"]
+        },
+        "rennes_grenoble": {
+            "score": 9,
+            "cities": ["rennes", "grenoble"]
+        },
+        "toulouse_berne": {
+            "score": 9,
+            "cities": ["toulouse", "berne"]
+        },
+        "londres_francfort": {
+            "score": 9,
+            "cities": ["londres", "francfort"]
+        },
+        "douai_clermont": {
+            "score": 9,
+            "cities": ["douai", "clermont"]
+        },
+        "bilbao_milan": {
+            "score": 10,
+            "cities": ["bilbao", "milan"]
+        },
+        "saragosse_francfort": {
+            "score": 10,
+            "cities": ["saragosse", "francfort"]
+        },
+        "bristol_montpellier": {
+            "score": 11,
+            "cities": ["bristol", "montpellier"]
+        },
+        "brest_bruxelles": {
+            "score": 11,
+            "cities": ["brest", "bruxelles"]
+        },
+        "bruxelles_geneve": {
+            "score": 11,
+            "cities": ["bruxelles", "geneve"]
+        },
+        "saragosse_bordeaux": {
+            "score": 11,
+            "cities": ["saragosse", "bordeaux"]
+        },
+        "douai_marseille": {
+            "score": 12,
+            "cities": ["douai", "montpellier"]
+        },
+        "nantes_lyon": {
+            "score": 12,
+            "cities": ["nantes", "lyon"]
+        },
+        "plymouth_clermont": {
+            "score": 13,
+            "cities": ["plymouth", "clermont"]
+        },
+        "londres_franckfort": {
+            "score": 13,
+            "cities": ["londres", "francfort"]
+        },
+        "bielefeld_rouen": {
+            "score": 13,
+            "cities": ["bielefeld", "rouen"]
+        },
+        "milan_bordeaux": {
+            "score": 16,
+            "cities": ["milan", "bordeaux"]
+        },
+        "brest_ajaccio": {
+            "score": 17,
+            "cities": ["brest", "ajaccio"]
+        },
+        "turin_tours": {
+            "score": 17,
+            "cities": ["turin", "tours"]
+        },
+        "bielefeld_bordeaux": {
+            "score": 20,
+            "cities": ["bielefeld", "bordeaux"]
+        },
+        "nantes_strasbourg": {
+            "score": 20,
+            "cities": ["nantes", "strasbourg"]
+        },
+        "barcelone_nice": {
+            "score": 21,
+            "cities": ["barcelone", "nice"]
+        },
+        "londres_limoges": {
+            "score": 22,
+            "cities": ["londres", "limoge"]
+        }
     }
 }
