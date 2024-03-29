@@ -12,6 +12,7 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/conversation.js',
                 'resources/js/profile.js',
+                'resources/js/map.js',
             ],
             refresh: true,
         }),

@@ -14,5 +14,6 @@
         <p>Bienvenue {{Auth::user()->pseudo}} !</p>
         <a href="{{route('logout')}}">Logout</a>
         <a href="{{route('conversation', ['conversation' => 1])}}">Chat</a>
+        <x-map></x-map>
     @endauth
 @endsection
