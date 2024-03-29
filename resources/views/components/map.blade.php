@@ -5,5 +5,9 @@
 </svg>
 
 @pushonce('scripts')
+    <script>
+        window.baroudeurMap = {};
+        window.baroudeurMap.pinPath = '{{Vite::asset('resources/images/destination_pin.png')}}';
+    </script>
     @vite('resources/js/map.js')
 @endpushonce

@@ -45,3 +45,17 @@ for (let rail of rails) {
         }
     })
 }
+
+window.addEventListener("load", (event) => {
+    let destinations = document.getElementsByClassName("hilight-city");
+    for (let destination of destinations) {
+        destination.addEventListener("click", function (event) {
+            let cityLocation = coordinates.cities[destination.id];
+            let pin = document.createElementNS('http://www.w3.org/2000/svg',"image");
+            pin.setAttribute("href", window.baroudeurMap.pinPath);
+            pin.setAttribute("x", cityLocation[0]-140);
+            pin.setAttribute("y", cityLocation[1]-140);
+            map.appendChild(pin);
+        });
+    }
+});
