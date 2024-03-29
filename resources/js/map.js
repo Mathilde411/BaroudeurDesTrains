@@ -46,16 +46,42 @@ for (let rail of rails) {
     })
 }
 
+function displayDestinationGoal(cities) {
+    let path = "M ";
+    for (let city of cities) {
+        let pin = document.createElementNS('http://www.w3.org/2000/svg',"image");
+        pin.setAttribute("href", window.baroudeurMap.pinPath);
+        let x = coordinates.cities[city][0];
+        let y = coordinates.cities[city][1];
+        pin.setAttribute("x", x-140);
+        pin.setAttribute("y", y-140);
+        pin.setAttribute("class", "temporary-destination");
+        path += x + " " + y + " L ";
+        map.appendChild(pin);
+    }
+    let line = document.createElementNS('http://www.w3.org/2000/svg',"path");
+    line.setAttribute("d", path);
+    line.setAttribute("stroke", "darkred");
+    line.setAttribute("stroke-dasharray", 20);
+    line.setAttribute("stroke-width", 10);
+    line.setAttribute("class", "temporary-destination");
+    console.log(path);
+    map.appendChild(line);
+}
+
 window.addEventListener("load", (event) => {
-    let destinations = document.getElementsByClassName("hilight-city");
+    let destinations = document.getElementsByClassName("destination");
     for (let destination of destinations) {
-        destination.addEventListener("click", function (event) {
-            let cityLocation = coordinates.cities[destination.id];
-            let pin = document.createElementNS('http://www.w3.org/2000/svg',"image");
-            pin.setAttribute("href", window.baroudeurMap.pinPath);
-            pin.setAttribute("x", cityLocation[0]-140);
-            pin.setAttribute("y", cityLocation[1]-140);
-            map.appendChild(pin);
+        destination.addEventListener("mouseover", function (event) {
+            let destinationDetails = coordinates.destinations[destination.id];
+            displayDestinationGoal(destinationDetails["cities"]);
+        });
+
+        destination.addEventListener("mouseout", function (event) {
+            let elementsToDelete = document.querySelectorAll(".temporary-destination");
+            elementsToDelete.forEach(function (element) {
+                element.parentNode.removeChild(element);
+            });
         });
     }
 });

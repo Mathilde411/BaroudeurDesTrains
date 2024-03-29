@@ -13,7 +13,6 @@ export default defineConfig({
                 'resources/js/conversation.js',
                 'resources/js/profile.js',
                 'resources/js/map.js',
-                'resources/js/destination-card.js',
             ],
             refresh: true,
         }),

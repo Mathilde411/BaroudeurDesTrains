@@ -15,11 +15,8 @@
         <a href="{{route('logout')}}">Logout</a>
         <a href="{{route('conversation', ['conversation' => 1])}}">Chat</a>
         <x-map></x-map>
-        <button id="rouen" class="hilight-city">Rouen</button>
-        <button id="paris" class="hilight-city">Paris</button>
-        <button id="clermont" class="hilight-city">clermont</button>
-        <button id="londres" class="hilight-city">Londres</button>
-        <button id="douai" class="hilight-city">Douai</button>
-        <button id="bilbao" class="hilight-city">Bilbao</button>
+        <div id="orleans_nice" class="destination">orleans_nice</div>
+        <div id="limoges_milan" class="destination">limoges_milan</div>
+        <div id="barcelone_nice" class="destination">barcelone_nice</div>
     @endauth
 @endsection
