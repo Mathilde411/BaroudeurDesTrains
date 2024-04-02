@@ -69,6 +69,57 @@ function displayDestinationGoal(cities) {
     map.appendChild(line);
 }
 
+function playerPositionSameScore(scoreList, player) {
+    let score = scoreList[player]["points"];
+    let playerPlace = 0;
+    let numberOfPlayers = 0;
+    let playerAlreadyIterated = false;
+    for (let person in scoreList) {
+        if (scoreList[person]["points"] === score) {
+            numberOfPlayers++;
+            if (!playerAlreadyIterated) {
+                playerPlace++;
+                if (person === player) {
+                    playerAlreadyIterated = true;
+                }
+            }
+        }
+    }
+    return [playerPlace, numberOfPlayers];
+}
+function displayScores(scoreList) {
+    for (let player in scoreList) {
+        let scorePath = document.createElementNS('http://www.w3.org/2000/svg',"path");
+        scorePath.setAttribute("id", player["color"]);
+        let scoreLocation = coordinates.points[scoreList[player]["points"]];
+        let playerWithSameScore = playerPositionSameScore(scoreList, player);
+        let path = "M " + (scoreLocation[0]) + "," + (scoreLocation[1]);
+        let radius = 30;
+        switch (playerWithSameScore[0]) {
+            case 1:
+                path += " m -" + radius + ",0 a " + radius + "," + radius + " 0 1,0 " + (2*radius) + ",0 a " + radius + "," + radius + " 0 1,0 -" + (2*radius) + ",0";
+                break;
+            case 2:
+                path += " m 0,-" + radius + " a " + radius + "," + radius + " 0 1,0 0," + (2*radius) + ""
+                break;
+            case 3:
+                if (playerWithSameScore[1] === 3) {
+                    path += " l " + (0.866*radius) + "," + (radius/2) + " a " + radius + "," + radius + " 0 0,1 -" + (2*0.866*radius) + ",0"
+                }
+                else {
+                    path += " l " + radius + ",0 a " + radius + "," + radius + " 0 0,1 -" + radius + "," + radius + ""
+                }
+                break;
+            case 4:
+                path += " l 0," + radius + " a " + radius + "," + radius + " 0 0,1 -" + radius + ",-" + radius + ""
+                break;
+        }
+        scorePath.setAttribute("d",path);
+        scorePath.setAttribute("fill", scoreList[player]["color"]);
+        map.appendChild(scorePath);
+    }
+}
+
 window.addEventListener("load", (event) => {
     let destinations = document.getElementsByClassName("destination");
     for (let destination of destinations) {
@@ -84,4 +135,6 @@ window.addEventListener("load", (event) => {
             });
         });
     }
+
+    displayScores(window.baroudeurMap.scoreList);
 });

@@ -8,6 +8,24 @@
     <script>
         window.baroudeurMap = {};
         window.baroudeurMap.pinPath = '{{Vite::asset('resources/images/destination_pin.png')}}';
+        window.baroudeurMap.scoreList = {
+            "player1": {
+                "points": 4,
+                "color": "blue"
+            },
+            "player2": {
+                "points": 4,
+                "color": "green"
+            },
+            "player3": {
+                "points": 4,
+                "color": "red"
+            },
+            "player4": {
+                "points": 4,
+                "color": "yellow"
+            }
+        }
     </script>
     @vite('resources/js/map.js')
 @endpushonce
