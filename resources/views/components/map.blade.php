@@ -11,19 +11,23 @@
         window.baroudeurMap.scoreList = {
             "player1": {
                 "points": 4,
-                "color": "blue"
+                "color": "blue",
+                "rides": ["plymouth_bristol", "douai_bruxelles", "nancy_dijon_2"]
             },
             "player2": {
                 "points": 4,
-                "color": "green"
+                "color": "green",
+                "rides": ["clermont_bordeaux", "nancy_dijon_1"]
             },
             "player3": {
                 "points": 4,
-                "color": "red"
+                "color": "red",
+                "rides": ["ajaccio_barcelone"]
             },
             "player4": {
                 "points": 4,
-                "color": "yellow"
+                "color": "yellow",
+                "rides": []
             }
         }
     </script>

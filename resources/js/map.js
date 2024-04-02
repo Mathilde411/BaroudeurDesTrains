@@ -51,8 +51,8 @@ function displayDestinationGoal(cities) {
     for (let city of cities) {
         let pin = document.createElementNS('http://www.w3.org/2000/svg',"image");
         pin.setAttribute("href", window.baroudeurMap.pinPath);
-        let x = coordinates.cities[city][0];
-        let y = coordinates.cities[city][1];
+        let x = coordinates["cities"][city][0];
+        let y = coordinates["cities"][city][1];
         pin.setAttribute("x", x-140);
         pin.setAttribute("y", y-140);
         pin.setAttribute("class", "temporary-destination");
@@ -65,7 +65,6 @@ function displayDestinationGoal(cities) {
     line.setAttribute("stroke-dasharray", 20);
     line.setAttribute("stroke-width", 10);
     line.setAttribute("class", "temporary-destination");
-    console.log(path);
     map.appendChild(line);
 }
 
@@ -120,11 +119,23 @@ function displayScores(scoreList) {
     }
 }
 
+function displayRides(playerList) {
+    for (let player in playerList) {
+        let color = playerList[player]["color"];
+        let rides = playerList[player]["rides"];
+        for (let ride in rides) {
+            let rails = map.getElementsByClassName(rides[ride]);
+            for (let selectedRail of rails) {
+                selectedRail.setAttribute("fill", color);
+            }
+        }
+    }
+}
 window.addEventListener("load", (event) => {
     let destinations = document.getElementsByClassName("destination");
     for (let destination of destinations) {
         destination.addEventListener("mouseover", function (event) {
-            let destinationDetails = coordinates.destinations[destination.id];
+            let destinationDetails = coordinates["destinations"][destination.id];
             displayDestinationGoal(destinationDetails["cities"]);
         });
 
@@ -137,4 +148,5 @@ window.addEventListener("load", (event) => {
     }
 
     displayScores(window.baroudeurMap.scoreList);
+    displayRides(window.baroudeurMap.scoreList);
 });
