@@ -1,52 +1,53 @@
-const coordinates = JSON.parse(document.getElementById('json-data').dataset.json);
-const map = document.getElementById('map-svg');
-const rides = coordinates.rides
+function createRails(map, coordinates) {
+    let rides = coordinates.rides;
+    for (let ride in rides) {
+        let rails = rides[ride]["points"];
+        for (let i = 0; i < rails.length; i++) {
+            let path = document.createElementNS('http://www.w3.org/2000/svg',"path");
+            path.setAttribute("id",ride + "-" + i);
+            path.setAttribute("fill","transparent");
+            path.setAttribute("class",ride + " rail");
 
-for (let ride in rides) {
-    let rails = rides[ride]["points"];
-    for (let i = 0; i < rails.length; i++) {
-        let path = document.createElementNS('http://www.w3.org/2000/svg',"path");
-        path.setAttribute("id",ride + "-" + i);
-        path.setAttribute("fill","transparent");
-        path.setAttribute("class",ride + " rail");
-
-        let rail = rails[i];
-        let plot = "M ";
-        for (let j = 0; j < 4; j++) {
-            if(j !== 0) {
-                plot += "L "
+            let rail = rails[i];
+            let plot = "M ";
+            for (let j = 0; j < 4; j++) {
+                if(j !== 0) {
+                    plot += "L "
+                }
+                plot += rail[j][0] + " " + rail[j][1] + " ";
             }
-            plot += rail[j][0] + " " + rail[j][1] + " ";
+            plot += "z";
+            path.setAttribute('d', plot);
+            map.appendChild(path);
         }
-        plot += "z";
-        path.setAttribute('d', plot);
-        map.appendChild(path);
     }
 }
 
-let rails = map.getElementsByClassName("rail");
-for (let rail of rails) {
-    rail.addEventListener("mouseover", function (event){
-        let selectedRails = map.getElementsByClassName(rail.classList[0]);
-        for (let selectedRail of selectedRails) {
-            selectedRail.setAttribute("opacity", "0.8");
-        }
-    })
-    rail.addEventListener("mouseout", function (event){
-        let selectedRails = map.getElementsByClassName(rail.classList[0]);
-        for (let selectedRail of selectedRails) {
-            selectedRail.setAttribute("opacity", "1");
-        }
-    })
-    rail.addEventListener("click", function (event){
-        let selectedRails = map.getElementsByClassName(rail.classList[0]);
-        for (let selectedRail of selectedRails) {
-            selectedRail.setAttribute("fill", "red");
-        }
-    })
+function addIntercationWithRails(map) {
+    let rails = map.getElementsByClassName("rail");
+    for (let rail of rails) {
+        rail.addEventListener("mouseover", function (event){
+            let selectedRails = map.getElementsByClassName(rail.classList[0]);
+            for (let selectedRail of selectedRails) {
+                selectedRail.setAttribute("opacity", "0.8");
+            }
+        })
+        rail.addEventListener("mouseout", function (event){
+            let selectedRails = map.getElementsByClassName(rail.classList[0]);
+            for (let selectedRail of selectedRails) {
+                selectedRail.setAttribute("opacity", "1");
+            }
+        })
+        rail.addEventListener("click", function (event){
+            let selectedRails = map.getElementsByClassName(rail.classList[0]);
+            for (let selectedRail of selectedRails) {
+                selectedRail.setAttribute("fill", "red");
+            }
+        })
+    }
 }
 
-function displayDestinationGoal() {
+function displayDestinationGoal(map, coordinates) {
     let destinations = document.getElementsByClassName("destination");
     for (let destination of destinations) {
         destination.addEventListener("mouseover", function (event) {
@@ -82,13 +83,13 @@ function displayDestinationGoal() {
     }
 }
 
-function playerPositionSameScore(scoreList, player) {
-    let score = scoreList[player]["points"];
+function playerPositionSameScore(playersInfo, player) {
+    let score = playersInfo[player]["points"] % 100;
     let playerPlace = 0;
     let numberOfPlayers = 0;
     let playerAlreadyIterated = false;
-    for (let person in scoreList) {
-        if (scoreList[person]["points"] === score) {
+    for (let person in playersInfo) {
+        if ((playersInfo[person]["points"] % 100) === score) {
             numberOfPlayers++;
             if (!playerAlreadyIterated) {
                 playerPlace++;
@@ -100,12 +101,12 @@ function playerPositionSameScore(scoreList, player) {
     }
     return [playerPlace, numberOfPlayers];
 }
-function displayScores(scoreList) {
-    for (let player in scoreList) {
+function displayScores(playersInfo, map, coordinates) {
+    for (let player in playersInfo) {
         let scorePath = document.createElementNS('http://www.w3.org/2000/svg',"path");
         scorePath.setAttribute("id", player["color"]);
-        let scoreLocation = coordinates.points[scoreList[player]["points"]];
-        let playerWithSameScore = playerPositionSameScore(scoreList, player);
+        let scoreLocation = coordinates.points[(playersInfo[player]["points"] % 100)];
+        let playerWithSameScore = playerPositionSameScore(playersInfo, player);
         let path = "M " + (scoreLocation[0]) + "," + (scoreLocation[1]);
         let radius = 30;
         switch (playerWithSameScore[0]) {
@@ -128,12 +129,12 @@ function displayScores(scoreList) {
                 break;
         }
         scorePath.setAttribute("d",path);
-        scorePath.setAttribute("fill", scoreList[player]["color"]);
+        scorePath.setAttribute("fill", playersInfo[player]["color"]);
         map.appendChild(scorePath);
     }
 }
 
-function displayRides(playerList) {
+function displayRides(playerList, map) {
     for (let player in playerList) {
         let color = playerList[player]["color"];
         let rides = playerList[player]["rides"];
@@ -146,7 +147,13 @@ function displayRides(playerList) {
     }
 }
 window.addEventListener("load", (event) => {
-    displayDestinationGoal();
-    displayScores(window.baroudeurMap.scoreList);
-    displayRides(window.baroudeurMap.scoreList);
+    const coordinates = window.baroudeurMap.jsonData;
+    const map = document.getElementById('map-svg');
+    const playersInfo = window.baroudeurMap.playersInfo;
+
+    createRails(map, coordinates);
+    addIntercationWithRails(map)
+    displayDestinationGoal(map, coordinates);
+    displayScores(playersInfo, map, coordinates);
+    displayRides(playersInfo, map);
 });
