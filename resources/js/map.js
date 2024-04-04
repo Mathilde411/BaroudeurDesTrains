@@ -32,7 +32,7 @@ function getActualPlayer(playersInfo) {
     }
 }
 
-function addIntercationWithRails(map, playersInfo) {
+function addIntercationWithRails(map, playersInfo, coordinates) {
     let rails = map.getElementsByClassName("rail");
     for (let rail of rails) {
         rail.addEventListener("mouseover", function (event){
@@ -60,8 +60,31 @@ function addIntercationWithRails(map, playersInfo) {
                 document.addEventListener('click', function(event) {
                     if (event.target.id === "close-popup" || (!popupMenu.contains(event.target) && !event.target.classList.contains('rail'))) {
                         popupMenu.style.display = 'none';
+                        let selectedCards = popupMenu.getElementsByClassName("selected-card");
+                        for (let i= 0; i<selectedCards.length; i++) {
+                            selectedCards[i].classList.remove("selected-card");
+                        }
                     }
                 });
+
+                let validateButton = document.getElementById("validate-popup");
+                validateButton.addEventListener("click", function() {
+                    let selectedCards = popupMenu.getElementsByClassName("selected-card");
+                    let values = [];
+                    for (let i= 0; i<selectedCards.length; i++) {
+                        values.push(selectedCards[i].dataset.color);
+                    }
+                    let ride = coordinates["rides"][rail.id.split('-')[0]];
+                    let color;
+                    if ("color" in ride) {
+                        color = ride["color"];
+                    }
+                    else {
+                        color = "grey";
+                    }
+                    let size = ride["points"].length;
+
+                })
             }
         })
     }
@@ -189,7 +212,7 @@ function displayCardsInHand(playersInfo, cards) {
         cardImage.height = 250;
         cardsInHandContainer.appendChild(cardImage);
 
-
+        cardImage.setAttribute("data-color", cardsInHand[card]);
         cardImage.addEventListener("click", function () {
             if (cardImage.classList.contains("selected-card")) {
                 cardImage.classList.remove("selected-card");
@@ -222,7 +245,7 @@ window.addEventListener("load", (event) => {
     const drawPile = window.baroudeurMap.drawPile;
 
     createRails(map, coordinates);
-    addIntercationWithRails(map, playersInfo)
+    addIntercationWithRails(map, playersInfo, coordinates)
     displayDestinationGoal(map, coordinates, playersInfo);
     displayScores(playersInfo, map, coordinates);
     displayRides(playersInfo, map);
