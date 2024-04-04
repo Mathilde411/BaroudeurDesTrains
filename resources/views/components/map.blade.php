@@ -6,7 +6,7 @@
     <script>
         window.baroudeurMap = {};
         window.baroudeurMap.pinPath = '{{Vite::asset('resources/images/destination_pin.png')}}';
-        window.baroudeurMap.jsonData = JSON.parse(`{!! file_get_contents(Vite::asset('resources/json/coordinates.json')) !!}`);
+        window.baroudeurMap.jsonData = JSON.parse(`{!! file_get_contents(resource_path('/json/coordinates.json')) !!}`);
         window.baroudeurMap.playersInfo = {
             "player1": {
                 "points": 104,

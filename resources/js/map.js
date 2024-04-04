@@ -146,7 +146,7 @@ function displayRides(playerList, map) {
         }
     }
 }
-window.addEventListener("load", (event) => {
+window.addEventListener("DOMContentLoaded", (event) => {
     const coordinates = window.baroudeurMap.jsonData;
     const map = document.getElementById('map-svg');
     const playersInfo = window.baroudeurMap.playersInfo;

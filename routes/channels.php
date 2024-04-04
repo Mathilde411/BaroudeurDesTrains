@@ -14,5 +14,6 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-Broadcast::channel('game.{game:slug}', \App\Broadcasting\GameChannel::class);
+Broadcast::channel('game.{gameSlug}', \App\Broadcasting\GameChannel::class);
+Broadcast::channel('game.{gameSlug}.{userId}', \App\Broadcasting\PlayerChannel::class);
 

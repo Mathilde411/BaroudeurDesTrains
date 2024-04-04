@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -37,9 +38,9 @@ class Game extends Model
                 ->withTimestamps();
     }
 
-    public function getPublicLobbies()
+    public static function publicLobbies(): Collection
     {
-
+        return static::where('game_state_id', 1)->where('private', 0)->get();
     }
 
 

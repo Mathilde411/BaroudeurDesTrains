@@ -13,11 +13,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        GameState::factory(3)
-            ->sequence([
-                ['name' => 'Lobby'],
-                ['name' => 'En Jeu'],
-                ['name' => 'Fini']
-            ]);
+        GameState::insert([
+            ['name' => 'Lobby'],
+            ['name' => 'En Jeu'],
+            ['name' => 'Fini']
+        ]);
     }
 }

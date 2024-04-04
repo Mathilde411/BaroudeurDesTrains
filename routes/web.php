@@ -79,6 +79,11 @@ Route::middleware('auth')->group(function () {
             Route::get('{game:slug}', [GameController::class, 'game'])
                 ->name('game');
 
+            Route::post('{game:slug}/start', [GameController::class, 'startGame'])
+                ->name('game.start')
+                ->can('start','game');
+
+
         });
     });
 

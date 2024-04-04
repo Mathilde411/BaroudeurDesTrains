@@ -5,7 +5,7 @@ namespace App\Broadcasting;
 use App\Models\Game;
 use App\Models\User;
 
-class GameChannel
+class PlayerChannel
 {
     /**
      * Create a new channel instance.
@@ -18,8 +18,9 @@ class GameChannel
     /**
      * Authenticate the user's access to the channel.
      */
-    public function join(User $user, string $gameSlug): array|bool
+    public function join(User $user, string $gameSlug, int $userId): array|bool
     {
-        return ['id' => $user->id, 'pseudo' => $user->pseudo];
+        $game = Game::where('slug', $gameSlug)->first();
+        return ($game->players()->where('users.id', $userId)->exists()) && ($user->id == $userId);
     }
 }
