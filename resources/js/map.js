@@ -164,14 +164,26 @@ function displayRides(playerList, map) {
         }
     }
 }
+
+function displayCardsInHand(playersInfo, cards) {
+    let cardsInHandContainer = document.getElementById("cards-in-hand")
+    let cardsInHand = playersInfo[getActualPlayer(playersInfo)]["cards"]
+    for (let card in cardsInHand) {
+        const cardImage = document.createElement("img");
+        cardImage.setAttribute("src", cards[cardsInHand[card]]);
+        cardsInHandContainer.appendChild(cardImage);
+    }
+}
 window.addEventListener("load", (event) => {
     const coordinates = window.baroudeurMap.jsonData;
     const map = document.getElementById('map-svg');
     const playersInfo = window.baroudeurMap.playersInfo;
+    const cards = window.baroudeurMap.cards;
 
     createRails(map, coordinates);
     addIntercationWithRails(map)
     displayDestinationGoal(map, coordinates, playersInfo);
     displayScores(playersInfo, map, coordinates);
     displayRides(playersInfo, map);
+    displayCardsInHand(playersInfo, cards);
 });
