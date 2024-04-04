@@ -2,10 +2,10 @@
 
 namespace App\Broadcasting;
 
-use App\Models\Conversation;
+use App\Models\Game;
 use App\Models\User;
 
-class ConversationChannel
+class GameChannel
 {
     /**
      * Create a new channel instance.
@@ -18,7 +18,7 @@ class ConversationChannel
     /**
      * Authenticate the user's access to the channel.
      */
-    public function join(User $user, Conversation $conversation): array|bool
+    public function join(User $user, Game $game): array|bool
     {
         return true;
     }

@@ -15,10 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
+            $table->boolean('private');
+
             $table->bigInteger('game_state_id')->unsigned();
             $table->foreign('game_state_id')->references('id')->on('game_states');
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
+
             $table->timestamps();
         });
     }

@@ -36,4 +36,11 @@ class Game extends Model
                 ->using(UserGame::class)
                 ->withTimestamps();
     }
+
+    public function getPublicLobbies()
+    {
+
+    }
+
+
 }

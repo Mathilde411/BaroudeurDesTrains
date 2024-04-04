@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\ConversationController;
+use App\Http\Controllers\GameController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,8 +19,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/logout', [AuthenticationController::class, 'logout'])->name('logout');
 
 Route::middleware('guest')->group(function () {
-    Route::view('/login', 'auth.login')
+    Route::get('/login', [AuthenticationController::class, 'loginView'])
         ->name('login');
+    Route::get('/loginImt', [AuthenticationController::class, 'cerbairLogin'])
+        ->name('login.cerbair');
     Route::post('/login', [AuthenticationController::class, 'login'])
         ->name('login.post');
 
@@ -65,6 +68,18 @@ Route::middleware('auth')->group(function () {
             ->name('profile');
         Route::post('profile/{user}', [ProfileController::class, 'modifyProfile'])
             ->name('profile.post');
+
+        Route::prefix('game')->group(function () {
+            Route::get('/', [GameController::class, 'games'])
+                ->name('games');
+
+            Route::post('/', [GameController::class, 'createGame'])
+                ->name('game.create');
+
+            Route::get('{game:slug}', [GameController::class, 'game'])
+                ->name('game');
+
+        });
     });
 
 });

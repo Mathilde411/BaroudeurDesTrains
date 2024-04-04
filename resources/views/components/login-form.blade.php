@@ -6,6 +6,8 @@
     <div class="end-btn">
         <input type="submit" value="Se connecter" class="btn main">
     </div>
+    <a href="{{$cerbairLink}}" class="btn main">
+        <img width="40" src="{{Vite::asset('resources/images/IMT-noir.svg')}}"> Connexion</a>
 </form>
 
 @pushonce('style')

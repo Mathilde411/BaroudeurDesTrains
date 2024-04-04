@@ -1,6 +1,5 @@
 <?php
 
-use App\Broadcasting\ConversationChannel;
 use App\Models\User;
 use Illuminate\Support\Facades\Broadcast;
 
@@ -15,4 +14,5 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-Broadcast::channel('conversation.{conversation}', ConversationChannel::class);
+Broadcast::channel('game.{game:slug}', \App\Broadcasting\GameChannel::class);
+
