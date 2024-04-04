@@ -58,7 +58,7 @@ function addIntercationWithRails(map, playersInfo) {
                 const popupMenu = document.getElementById('popup-menu');
                 popupMenu.style.display = 'block';
                 document.addEventListener('click', function(event) {
-                    if (!popupMenu.contains(event.target) && event.target !== rail) {
+                    if (event.target.id === "close-popup" || (!popupMenu.contains(event.target) && !event.target.classList.contains('rail'))) {
                         popupMenu.style.display = 'none';
                     }
                 });
@@ -186,8 +186,19 @@ function displayCardsInHand(playersInfo, cards) {
     for (let card in cardsInHand) {
         const cardImage = document.createElement("img");
         cardImage.setAttribute("src", cards[cardsInHand[card]]);
+        cardImage.height = 250;
         cardsInHandContainer.appendChild(cardImage);
-        popupMenu.appendChild(cardImage);
+
+
+        cardImage.addEventListener("click", function () {
+            if (cardImage.classList.contains("selected-card")) {
+                cardImage.classList.remove("selected-card");
+            }
+            else {
+                cardImage.classList.add("selected-card");
+            }
+        })
+        popupMenu.insertBefore(cardImage, popupMenu.firstChild);
     }
 }
 

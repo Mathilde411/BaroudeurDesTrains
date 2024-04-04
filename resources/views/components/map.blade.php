@@ -2,7 +2,12 @@
     <image href="{{Vite::asset('resources/images/map.png')}}" x="0" y="0" height="2918" width="2240" />
 </svg>
 
-<div id="popup-menu" class="pop-up"></div>
+<div id="popup-menu" class="pop-up">
+    <div class="end-btn popup-btns">
+        <button id="close-popup" class="btn main close-popup">Fermer</button>
+        <button id="validate-popup" class="btn main validate-popup">Valider</button>
+    </div>
+</div>
 
 <div id="destinations-container">
     <p>Destinations à atteindre : </p>

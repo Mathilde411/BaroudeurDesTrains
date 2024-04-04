@@ -8,3 +8,11 @@
     bottom: 100px;
     overflow-y: scroll;
 }
+
+.selected-card {
+    background-color: lightgray;
+}
+
+.popup-btns {
+    display: flex;
+}
