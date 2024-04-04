@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 
@@ -24,6 +26,65 @@ class AuthenticationController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()->route('home');
+    }
+
+    public function cerbairLogin(Request $request) {
+        $req = $request->validate([
+            'code' => ['required'],
+            'state' => ['required']
+        ]);
+
+        $token_response = Http::post(config('auth.oauth2.token_url'), [
+            'grant_type' => 'authorization_code',
+            'client_id' => config('auth.oauth2.id'),
+            'client_secret' => config('auth.oauth2.secret'),
+            'code' => $req['code']
+        ]);
+
+        if ($token_response->failed()) {
+            abort(401);
+        }
+
+        $token = $token_response['access_token'];
+
+        $user_response = Http::withToken($token)->get(config('auth.oauth2.user_endpoint_url'));
+
+        if ($user_response->failed()) {
+            abort(401);
+        }
+
+        $prenom = $user_response['first_name'];
+        $nom = $user_response['last_name'];
+        $email = $user_response['email'];
+        if(User::where('email', $email)->exists()) {
+            $user = User::where('email', $email)->first();
+        } else {
+
+            $user = new User();
+            $user->email = $email;
+            $user->pseudo = ucfirst($prenom) . ' ' . strtoupper($nom);
+            $user->email_verified_at = Carbon::now();
+            $user->save();
+        }
+
+        Auth::login($user);
+        $request->session()->regenerate();
+
+        return redirect()->intended();
+
+
+    }
+
+    public function loginView()
+    {
+        return view('auth.login', [
+            'cerbairLink' => config('auth.oauth2.authorize_url')
+                . '?response_type=code'
+                . '&client_id='  . config('auth.oauth2.id')
+                . '&redirect_uri='. config('auth.oauth2.redirect_uri')
+                . '&scope=profile email'
+                . '&state=' . hash('sha1', session_id())
+        ]);
     }
 
     public function login(Request $request)
@@ -46,7 +107,7 @@ class AuthenticationController extends Controller
         }
 
         return back()->withErrors([
-            'email' => 'Ces identifiants sont incorrects.',
+            'email' => 'Ces identifiants sont incorrects.'
         ])->onlyInput('email');
     }
 
