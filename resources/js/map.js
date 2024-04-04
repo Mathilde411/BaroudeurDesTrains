@@ -5,7 +5,8 @@ function createRails(map, coordinates) {
         for (let i = 0; i < rails.length; i++) {
             let path = document.createElementNS('http://www.w3.org/2000/svg',"path");
             path.setAttribute("id",ride + "-" + i);
-            path.setAttribute("fill","transparent");
+            path.setAttribute("fill","white");
+            path.setAttribute("opacity", "0");
             path.setAttribute("class",ride + " rail");
 
             let rail = rails[i];
@@ -23,31 +24,83 @@ function createRails(map, coordinates) {
     }
 }
 
-function addIntercationWithRails(map) {
+function getActualPlayer(playersInfo) {
+    for (let player in playersInfo) {
+        if ("cards" in playersInfo[player]) {
+            return player;
+        }
+    }
+}
+
+function addIntercationWithRails(map, playersInfo, coordinates) {
     let rails = map.getElementsByClassName("rail");
     for (let rail of rails) {
         rail.addEventListener("mouseover", function (event){
-            let selectedRails = map.getElementsByClassName(rail.classList[0]);
-            for (let selectedRail of selectedRails) {
-                selectedRail.setAttribute("opacity", "0.8");
+            if (!rail.classList.contains("used") && getActualPlayer(playersInfo) === window.baroudeurMap.activePlayer) {
+                this.style.cursor = 'pointer';
+                let selectedRails = map.getElementsByClassName(rail.classList[0]);
+                for (let selectedRail of selectedRails) {
+                    selectedRail.setAttribute("opacity", "0.2");
+                }
             }
         })
         rail.addEventListener("mouseout", function (event){
-            let selectedRails = map.getElementsByClassName(rail.classList[0]);
-            for (let selectedRail of selectedRails) {
-                selectedRail.setAttribute("opacity", "1");
+            if (!rail.classList.contains("used") && getActualPlayer(playersInfo) === window.baroudeurMap.activePlayer) {
+                this.style.cursor = 'default';
+                let selectedRails = map.getElementsByClassName(rail.classList[0]);
+                for (let selectedRail of selectedRails) {
+                    selectedRail.setAttribute("opacity", "0");
+                }
             }
         })
         rail.addEventListener("click", function (event){
-            let selectedRails = map.getElementsByClassName(rail.classList[0]);
-            for (let selectedRail of selectedRails) {
-                selectedRail.setAttribute("fill", "red");
+            if (!rail.classList.contains("used") && getActualPlayer(playersInfo) === window.baroudeurMap.activePlayer) {
+                const popupMenu = document.getElementById('popup-menu');
+                popupMenu.style.display = 'block';
+                document.addEventListener('click', function(event) {
+                    if (event.target.id === "close-popup" || (!popupMenu.contains(event.target) && !event.target.classList.contains('rail'))) {
+                        popupMenu.style.display = 'none';
+                        let selectedCards = popupMenu.getElementsByClassName("selected-card");
+                        for (let i= 0; i<selectedCards.length; i++) {
+                            selectedCards[i].classList.remove("selected-card");
+                        }
+                    }
+                });
+
+                let validateButton = document.getElementById("validate-popup");
+                validateButton.addEventListener("click", function() {
+                    let selectedCards = popupMenu.getElementsByClassName("selected-card");
+                    let values = [];
+                    for (let i= 0; i<selectedCards.length; i++) {
+                        values.push(selectedCards[i].dataset.color);
+                    }
+                    let ride = coordinates["rides"][rail.id.split('-')[0]];
+                    let color;
+                    if ("color" in ride) {
+                        color = ride["color"];
+                    }
+                    else {
+                        color = "grey";
+                    }
+                    let size = ride["points"].length;
+
+                })
             }
         })
     }
 }
 
-function displayDestinationGoal(map, coordinates) {
+function displayDestinationGoal(map, coordinates, playersInfo) {
+    const container = document.getElementById("destinations-container");
+    let destinationList = playersInfo[getActualPlayer(playersInfo)]["destinations"];
+    for (let destinaton in destinationList) {
+        const destinationDiv = document.createElement("div");
+        destinationDiv.setAttribute("id", destinationList[destinaton]);
+        destinationDiv.setAttribute("class", "destination");
+        destinationDiv.innerHTML = destinationList[destinaton];
+        container.appendChild(destinationDiv)
+    }
+
     let destinations = document.getElementsByClassName("destination");
     for (let destination of destinations) {
         destination.addEventListener("mouseover", function (event) {
@@ -142,18 +195,62 @@ function displayRides(playerList, map) {
             let rails = map.getElementsByClassName(rides[ride]);
             for (let selectedRail of rails) {
                 selectedRail.setAttribute("fill", color);
+                selectedRail.setAttribute("opacity", "1");
+                selectedRail.classList.add("used")
             }
         }
     }
 }
+
+function displayCardsInHand(playersInfo, cards) {
+    let cardsInHandContainer = document.getElementById("cards-in-hand");
+    let popupMenu = document.getElementById("popup-menu");
+    let cardsInHand = playersInfo[getActualPlayer(playersInfo)]["cards"];
+    for (let card in cardsInHand) {
+        const cardImage = document.createElement("img");
+        cardImage.setAttribute("src", cards[cardsInHand[card]]);
+        cardImage.height = 250;
+        cardsInHandContainer.appendChild(cardImage);
+
+        cardImage.setAttribute("data-color", cardsInHand[card]);
+        cardImage.addEventListener("click", function () {
+            if (cardImage.classList.contains("selected-card")) {
+                cardImage.classList.remove("selected-card");
+            }
+            else {
+                cardImage.classList.add("selected-card");
+            }
+        })
+        popupMenu.insertBefore(cardImage, popupMenu.firstChild);
+    }
+}
+
+
+function displayDrawPile(cards, drawPile) {
+    let drawPileContainer = document.getElementById("draw-pile")
+    for (let card in drawPile) {
+        const cardImage = document.createElement("img");
+        cardImage.setAttribute("src", cards[drawPile[card]]);
+        drawPileContainer.appendChild(cardImage);
+    }
+    const cardImage = document.createElement("img");
+    cardImage.setAttribute("src", cards["side"]);
+    cardImage.width = 250;
+    drawPileContainer.appendChild(cardImage);
+}
+
 window.addEventListener("DOMContentLoaded", (event) => {
     const coordinates = window.baroudeurMap.jsonData;
     const map = document.getElementById('map-svg');
     const playersInfo = window.baroudeurMap.playersInfo;
+    const cards = window.baroudeurMap.cards;
+    const drawPile = window.baroudeurMap.drawPile;
 
     createRails(map, coordinates);
-    addIntercationWithRails(map)
-    displayDestinationGoal(map, coordinates);
+    addIntercationWithRails(map, playersInfo, coordinates)
+    displayDestinationGoal(map, coordinates, playersInfo);
     displayScores(playersInfo, map, coordinates);
     displayRides(playersInfo, map);
+    displayCardsInHand(playersInfo, cards);
+    displayDrawPile(cards, drawPile);
 });

@@ -54,6 +54,13 @@
 
 }
 
+.end-btn {
+    display: flex;
+    justify-content: center;
+    margin: 5px;
+    gap: 5px;
+}
+
 .has-dropdown {
     .drop::after {
         content: "";

@@ -15,8 +15,5 @@
         <a href="{{route('logout')}}">Logout</a>
         <a href="{{route('conversation', ['conversation' => 1])}}">Chat</a>
         <x-map></x-map>
-        <div id="orleans_nice" class="destination">orleans_nice</div>
-        <div id="limoges_milan" class="destination">limoges_milan</div>
-        <div id="barcelone_nice" class="destination">barcelone_nice</div>
     @endauth
 @endsection

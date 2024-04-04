@@ -8,6 +8,7 @@ export default defineConfig({
                 'resources/css/app.scss',
                 'resources/css/conversation.scss',
                 'resources/css/form.scss',
+                'resources/css/map.scss',
 
                 'resources/js/app.js',
                 'resources/js/conversation.js',
