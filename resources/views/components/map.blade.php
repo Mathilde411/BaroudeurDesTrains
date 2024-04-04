@@ -2,6 +2,10 @@
     <image href="{{Vite::asset('resources/images/map.png')}}" x="0" y="0" height="2918" width="2240" />
 </svg>
 
+<div id="destinations-container"></div>
+
+<div id="cards-in-hand"></div>
+
 @pushonce('scripts')
     <script>
         window.baroudeurMap = {};
@@ -11,7 +15,9 @@
             "player1": {
                 "points": 104,
                 "color": "blue",
-                "rides": ["plymouth_bristol", "douai_bruxelles", "nancy_dijon_2"]
+                "rides": ["plymouth_bristol", "douai_bruxelles", "nancy_dijon_2"],
+                "cards": ["black", "black", "black", "red", "yellow", "locom"],
+                "destinations": ["orleans_nice", "limoges_milan", "barcelone_nice"]
             },
             "player2": {
                 "points": 4,

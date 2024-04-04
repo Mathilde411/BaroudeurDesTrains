@@ -47,7 +47,25 @@ function addIntercationWithRails(map) {
     }
 }
 
-function displayDestinationGoal(map, coordinates) {
+function getActualPlayer(playersInfo) {
+    for (let player in playersInfo) {
+        if ("cards" in playersInfo[player]) {
+            return player;
+        }
+    }
+}
+
+function displayDestinationGoal(map, coordinates, playersInfo) {
+    const container = document.getElementById("destinations-container");
+    let destinationList = playersInfo[getActualPlayer(playersInfo)]["destinations"];
+    for (let destinaton in destinationList) {
+        const destinationDiv = document.createElement("div");
+        destinationDiv.setAttribute("id", destinationList[destinaton]);
+        destinationDiv.setAttribute("class", "destination");
+        destinationDiv.innerHTML = destinationList[destinaton];
+        container.appendChild(destinationDiv)
+    }
+
     let destinations = document.getElementsByClassName("destination");
     for (let destination of destinations) {
         destination.addEventListener("mouseover", function (event) {
@@ -153,7 +171,7 @@ window.addEventListener("load", (event) => {
 
     createRails(map, coordinates);
     addIntercationWithRails(map)
-    displayDestinationGoal(map, coordinates);
+    displayDestinationGoal(map, coordinates, playersInfo);
     displayScores(playersInfo, map, coordinates);
     displayRides(playersInfo, map);
 });
