@@ -16,3 +16,18 @@
 .popup-btns {
     display: flex;
 }
+
+.gamecontent {
+    display: flex;
+    flex-direction: row;
+    .map {
+        display: flex;
+        flex-direction: column;
+        width: 50vw;
+    }
+
+    .info {
+        display: flex;
+        flex-direction: column;
+    }
+}
