@@ -36,3 +36,7 @@
         </div>
     </form>
 @endsection
+
+@pushonce('style')
+    @vite('resources/css/form.scss')
+@endpushonce

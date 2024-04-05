@@ -21,10 +21,8 @@
 
     <nav>
         <ul>
-            <li><a href="#">Lien</a></li>
             @auth
-            <li><a href="{{route('conversation', ['conversation' => 1])}}">Chat</a></li>
-            <li><a href="#">Lien</a></li>
+            <li><a href="{{route('games')}}">Parties</a></li>
             @endauth
         </ul>
     </nav>
